@@ -5,7 +5,10 @@ class Item {
     this.quality = quality;
   }
   updateQuality() {
-    if (this.quality <= 0 || this.quality >= 50) return false;
+    if (this.quality <= 0 || this.quality >= 50) {
+      this.sellIn -= 1;
+      return false;
+    }
     this.sellIn <= 0 ? (this.quality -= 2) : (this.quality -= 1);
     this.sellIn -= 1;
   }
@@ -31,7 +34,10 @@ class AgedBrie {
   }
   updateQuality() {
 
-    if (this.quality <= 0 || this.quality >= 50) return false;
+    if (this.quality <= 0 || this.quality >= 50) {
+      this.sellIn -= 1;
+      return false;
+    }
     if (this.sellIn > 10) {
       this.quality += 1;
     } else if (this.sellIn <= 10 && this.sellIn > 5) {
@@ -62,7 +68,10 @@ class BackstagePasses {
     this.sellIn = sellIn;
   }
   updateQuality() {
-    if (this.quality <= 0 || this.quality >= 50) return false;
+    if (this.quality <= 0 || this.quality >= 50) {
+      this.sellIn -= 1;
+      return false;
+    }
     if (this.sellIn > 10) {
       this.quality += 1;
     } else if (this.sellIn <= 10 && this.sellIn > 5) {
