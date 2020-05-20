@@ -1,4 +1,11 @@
-var { Shop, Item } = require('../src/gilded_rose.js');
+var {
+  Conjured,
+  BackstagePasses,
+  Sulfuras,
+  AgedBrie,
+  Shop,
+  Item
+} = require('../src/gilded_rose.js');
 describe("GildedRose shop manager", function () {
   var listItems;
 
@@ -12,11 +19,16 @@ describe("GildedRose shop manager", function () {
     listItems.push(new Item("Mana Cake", 3, 6));
 
     const gildedRose = new Shop(listItems);
-    const items = gildedRose.updateQuality();
+    const items = gildedRose.updateQualityForShop();
 
-    var expected = [
-      { sellIn: 9, quality: 19 },
-      { sellIn: 2, quality: 5 }
+    var expected = [{
+        sellIn: 9,
+        quality: 19
+      },
+      {
+        sellIn: 2,
+        quality: 5
+      }
     ];
     expected.forEach(function (testCase, idx) {
       expect(items[idx].quality).toBe(testCase.quality);
@@ -25,15 +37,20 @@ describe("GildedRose shop manager", function () {
   });
 
   it("Augmenter la qualité de 1 pour Aged Brie et Backstage passes", function () {
-    listItems.push(new Item("Aged Brie", 20, 30));
-    listItems.push(new Item("Backstage passes to a TAFKAL80ETC concert", 20, 30));
+    listItems.push(new AgedBrie("Aged Brie", 20, 30));
+    listItems.push(new BackstagePasses("Backstage passes to a TAFKAL80ETC concert", 20, 30));
 
     const gildedRose = new Shop(listItems);
-    const items = gildedRose.updateQuality();
+    const items = gildedRose.updateQualityForShop();
 
-    var expected = [
-      { sellIn: 19, quality: 31 },
-      { sellIn: 19, quality: 31 },
+    var expected = [{
+        sellIn: 19,
+        quality: 31
+      },
+      {
+        sellIn: 19,
+        quality: 31
+      },
     ];
     expected.forEach(function (testCase, idx) {
       expect(items[idx].quality).toBe(testCase.quality);
