@@ -50,6 +50,9 @@ class Sulfuras {
     this.name = name;
     this.quality = quality;
   }
+  updateQuality() {
+    if (this.quality != 80) return false;
+  }
 }
 
 class BackstagePasses {
