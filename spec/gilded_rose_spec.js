@@ -36,6 +36,28 @@ describe("GildedRose shop manager", function () {
     });
   });
 
+  it("la qualité reste inchanger pour sellIn d'item normaux avec une quality > à 50", function () {
+    listItems.push(new Item("+5 Dexterity Vest", 10, 60));
+    listItems.push(new Item("Mana Cake", 3, 80));
+
+    const gildedRose = new Shop(listItems);
+    const items = gildedRose.updateQualityForShop();
+
+    var expected = [{
+        sellIn: 9,
+        quality: 60
+      },
+      {
+        sellIn: 2,
+        quality: 80
+      }
+    ];
+    expected.forEach(function (testCase, idx) {
+      expect(items[idx].quality).toBe(testCase.quality);
+      expect(items[idx].sellIn).toBe(testCase.sellIn);
+    });
+  });
+
   it("Augmenter la qualité de 1 pour Aged Brie et Backstage passes", function () {
     listItems.push(new AgedBrie("Aged Brie", 20, 30));
     listItems.push(new BackstagePasses("Backstage passes to a TAFKAL80ETC concert", 20, 30));
@@ -50,6 +72,50 @@ describe("GildedRose shop manager", function () {
       {
         sellIn: 19,
         quality: 31
+      },
+    ];
+    expected.forEach(function (testCase, idx) {
+      expect(items[idx].quality).toBe(testCase.quality);
+      expect(items[idx].sellIn).toBe(testCase.sellIn);
+    });
+  });
+
+  it("la qualité reste inchanger avec une quality > à 50 pour sellIn d'Aged Brie et de Backstage passes", function () {
+    listItems.push(new AgedBrie("Aged Brie", 20, 77));
+    listItems.push(new BackstagePasses("Backstage passes to a TAFKAL80ETC concert", 20, 60));
+
+    const gildedRose = new Shop(listItems);
+    const items = gildedRose.updateQualityForShop();
+
+    var expected = [{
+        sellIn: 19,
+        quality: 77
+      },
+      {
+        sellIn: 19,
+        quality: 60
+      },
+    ];
+    expected.forEach(function (testCase, idx) {
+      expect(items[idx].quality).toBe(testCase.quality);
+      expect(items[idx].sellIn).toBe(testCase.sellIn);
+    });
+  });
+
+  it("la qualité reste inchanger avec une quality < 0 pour sellIn d'Aged Brie et de Backstage passes", function () {
+    listItems.push(new AgedBrie("Aged Brie", -20, 77));
+    listItems.push(new BackstagePasses("Backstage passes to a TAFKAL80ETC concert", -20, 60));
+
+    const gildedRose = new Shop(listItems);
+    const items = gildedRose.updateQualityForShop();
+
+    var expected = [{
+        sellIn: -21,
+        quality: 77
+      },
+      {
+        sellIn: -21,
+        quality: 60
       },
     ];
     expected.forEach(function (testCase, idx) {
